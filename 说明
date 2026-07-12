@@ -1,0 +1,36 @@
+"""""""""
+项目代码采用低内聚低耦合的特点进行编写
+
+1.文件说明：
+main是主函数，负责开启模型训练与作图，保存实验结果文件
+test.py 是拿数据集去进行预测的文件
+config.param.py是实验参数集合, 关于数据集的设置与训练的参数在此设置
+data.datasets是数据集的构建代码
+models.muti_branch是每个分支的具体结构
+models.layers是注意力层的模块代码
+models.spatiotemporal是注意力层的主干
+utils.trainer是训练模块，关于训练的参数在此设置
+
+
+2.实验代码修改
+2.1.改每一个特征分支中特征数量，需要改
+/home/gzy/xlw/models/spatiotemporal.py
+/home/gzy/xlw/models/layers.py 的 FinalRegression(nn.Module): 
+
+2.2.对于注意力层的修改：
+主干结构在models.spatiotemporal.py进行修改
+时空注意力的内部实现细节在models.layers.py进行修改
+
+2.3对于特征提取层的修改：
+主干结构在muti_branch.py
+提取特征实现在models.layers.py
+
+
+
+3.实验结果：
+实验的数据与结果保存在pic文件夹。目前效果最好的模型文件在每次实验的pic文件夹的models目录下的best_model.path文件
+每次实验会保存最好的test loss的模型数据
+""""""""""
+
+作图脚本：draw_test.py，文件夹：TimeFusionNetwoSA和TimeFusionNetwoTA文件夹。存放着消融实验的两条曲线的原始数据，本文的模型的实验数据在20250705_085307_最好文件夹下，即图中本文所提出的模型的曲线的原始数据。路径都在pic文件夹下。
+消融实验相关代码：multi_branch.py
